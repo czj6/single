@@ -1,0 +1,190 @@
+p {
+    margin: 0;
+    padding: 0;
+}
+
+
+/*面板*/
+
+.panel {
+    margin: 100px auto;
+    border: 1px solid transparent;
+    /*padding: 6px 12px;*/
+    margin-bottom: 20px;
+    border-radius: 4px;
+    width: 25%;
+}
+
+.panel .panel-heading {
+    border-bottom: 1px solid transparent;
+}
+
+.panel .panel-title {
+    padding: 20px 15px;
+    font-size: 20px;
+    text-align: center;
+}
+
+.panel-body {
+    padding: 15px;
+    height: 300px;
+    text-align: center;
+}
+
+.panel-body input {
+    width: 90%;
+    margin-top: 60px;
+    height: 40px;
+    outline-style: none;
+    border: none;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-family: "微软雅黑";
+    font-size: 20px;
+}
+
+.panel-body input:focus {
+    border-color: #66afe9;
+    outline: 0;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(102, 175, 233, .6);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(102, 175, 233, .6)
+}
+
+.panel .panel-footer {
+    border-top: 1px solid transparent;
+    padding: 10px 15px;
+    text-align: center;
+}
+
+.panel-default {
+    border: 1px solid #ddd;
+}
+
+.panel-default .panel-heading {
+    border-bottom: 1px solid #ddd;
+    background-color: #F5F5F5;
+}
+
+.panel-default .panel-footer {
+    border-top: 1px solid #DDD;
+    background-color: #F5F5F5;
+}
+
+
+/*按钮类*/
+
+.btn {
+    border: 1px solid transparent;
+    padding: 6px 12px;
+    border-radius: 4px;
+}
+
+.btn-default {
+    background-color: #FFF;
+    color: #333;
+}
+
+.btn-default:hover {
+    color: #333;
+    background-color: #ccc;
+}
+
+.btn-primary {
+    background-color: #3386FF;
+    color: #fff;
+    border-color: #2E6DA4;
+}
+
+.btn-primary:hover {
+    color: #fff;
+    background-color: #2F7CEB;
+}
+
+.btn-warning {
+    background-color: #F0AD4E;
+    color: #fff;
+    border-color: #EEA236;
+}
+
+.btn-warning {
+    background-color: #EC971F;
+    color: #fff;
+}
+
+.btn-info {
+    background-color: #5BC0DE;
+    color: #fff;
+    border-color: #FFFFFF;
+}
+
+.btn-info:hover {
+    background-color: #31B0D5;
+    color: #fff;
+    border-color: #90BAFE;
+}
+
+.btn-success {
+    background-color: #5CB85C;
+    color: #fff;
+    border-color: #4CAE4C;
+}
+
+.btn-success:hover {
+    background-color: #449D44;
+    color: #fff;
+}
+
+.btn-danger {
+    background-color: #D9534F;
+    color: #fff;
+    border-color: #D43F3A;
+}
+
+.btn-danger:hover {
+    background-color: #C9302C;
+    color: #fff;
+}
+
+#tooltips {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    position: absolute;
+    top: 0;
+    z-index: 999;
+    display: none;
+}
+
+#info {
+    width: 400px;
+    height: 200px;
+    background-color: white;
+    margin: 150px auto;
+}
+
+#info .title {
+    width: 100%;
+    height: 40px;
+    background-color: #3386FF;
+    line-height: 40px;
+    color: white;
+    padding-left: 20px;
+    box-sizing: border-box;
+}
+
+#info .btn #confirm {
+    background-color: #3386FF;
+    color: white;
+    outline: none;
+    font-size: 10px;
+    width: 60px;
+    height: 30px;
+    margin-left: 300px;
+    border: none;
+}
+
+#info .content {
+    height: 120px;
+    padding: 20px;
+    box-sizing: border-box;
+}

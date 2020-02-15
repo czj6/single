@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        body {
+            padding: 0;
+            margin: 0;
+        }
+        
+        canvas {
+            /*border: 1px solid #ddd;*/
+            position: absolute;
+            top: 200px;
+            left: 350px;
+        }
+        
+        #linearGradient {
+            border: 1px solid #dddddd;
+            background-image: linear-gradient(to top, pink, blue);
+        }
+    </style>
+</head>
+
+<body>
+    <div id="linearGradient"></div>
+    <canvas width="800px" height="400px"></canvas>
+    <script>
+        window.onload = function() {
+            var linearGradient = document.getElementById('linearGradient');
+            var w = window.innerWidth;
+            var h = window.innerHeight;
+            linearGradient.style.height = h + 'px';
+            linearGradient.style.width = w + 'px';
+
+        }
+
+        var canvas = document.querySelector('canvas');
+        var clock = function() {
+            this.ctx = document.querySelector('canvas').getContext('2d');
+            //圆心
+            this.x0 = this.ctx.canvas.width / 2;
+            this.y0 = this.ctx.canvas.height / 2;
+            this.radius = 150;
+            this.longscale = 40;
+            this.shortscale = 20;
+            this.hour_hand = 60;
+            this.minute_hand = 90;
+            this.second_hand = 120;
+            this.hour = new Date().getHours();
+            this.minute = new Date().getMinutes();
+            this.second = new Date().getSeconds();
+            this.autoplay();
+            //this.drawclock();
+        }
+        clock.prototype.drawclock = function() {
+            //this.ctx = ctx||document.querySelector('canvas').getContext('2d');
+
+            //画圆盘
+            this.ctx.beginPath();
+            this.ctx.arc(this.x0 - 0.5, this.y0 - 0.5, this.radius, 0, Math.PI * 2);
+            this.ctx.lineWidth = 1;
+            this.ctx.strokeStyle = 'black';
+            this.ctx.stroke();
+            //画刻度
+            for (var i = 0; i < 60; i++) {
+                this.ctx.beginPath();
+                var x2 = this.x0 + this.radius * Math.cos(i * Math.PI / 30);
+                var y2 = this.y0 + this.radius * Math.sin(i * Math.PI / 30);
+                if (i % 5 === 0) {
+                    var x1 = this.x0 + (this.radius - this.longscale) * Math.cos(i * Math.PI / 30);
+                    var y1 = this.y0 + (this.radius - this.longscale) * Math.sin(i * Math.PI / 30);
+                    this.ctx.moveTo(x2 - 0.5, y2 - 0.5);
+                    this.ctx.lineTo(x1 - 0.5, y1 - 0.5);
+                    this.ctx.stroke();
+                } else {
+                    var x1 = this.x0 + (this.radius - this.shortscale) * Math.cos(i * Math.PI / 30);
+                    var y1 = this.y0 + (this.radius - this.shortscale) * Math.sin(i * Math.PI / 30);
+                    this.ctx.moveTo(x2 - 0.5, y2 - 0.5);
+                    this.ctx.lineTo(x1 - 0.5, y1 - 0.5);
+                    this.ctx.lineWidth = 1;
+                    this.ctx.strokeStyle = 'black';
+                    this.ctx.stroke();
+                }
+
+            }
+            //画圆心
+            this.ctx.beginPath();
+            this.ctx.arc(this.x0 - 0.5, this.y0 - 0.5, 2, 0, Math.PI * 2);
+
+            this.ctx.strokeStyle = 'black';
+            this.ctx.fill();
+            this.drawhour();
+            this.drawminute();
+            this.drawsecond();
+        }
+        clock.prototype.drawhour = function() {
+            console.log(this.hour);
+            /*一个小时，时针走了PI/6，一个小时有3600秒，一秒钟走了PI/21600*/
+            var x = this.x0 + this.hour_hand * Math.cos((this.second + this.minute * 60 + this.hour % 12 * 3600) * Math.PI / 21600 - Math.PI / 2);
+            var y = this.y0 + this.hour_hand * Math.sin((this.second + this.minute * 60 + this.hour % 12 * 3600) * Math.PI / 21600 - Math.PI / 2);
+            this.ctx.beginPath();
+            this.ctx.moveTo(this.x0, this.y0);
+            this.ctx.lineTo(x - 0.5, y - 0.5);
+            this.ctx.lineWidth = 3;
+            this.ctx.strokeStyle = 'black';
+            this.ctx.stroke();
+        }
+        clock.prototype.drawminute = function() {
+            /*一分钟，分针走了PI/30,60秒，平均每秒PI/1800*/
+            console.log(this.minute)
+            var x = this.x0 + this.minute_hand * Math.cos((this.second + this.minute * 60) * Math.PI / 1800 - Math.PI / 2);
+            var y = this.y0 + this.minute_hand * Math.sin((this.second + this.minute * 60) * Math.PI / 1800 - Math.PI / 2);
+            this.ctx.beginPath();
+            this.ctx.lineWidth = 3;
+            this.ctx.moveTo(this.x0, this.y0);
+            this.ctx.strokeStyle = 'black';
+            this.ctx.lineTo(x - 0.5, y - 0.5);
+            this.ctx.stroke();
+
+        }
+        clock.prototype.drawsecond = function() {
+            console.log(this.second);
+            var x = this.x0 + this.second_hand * Math.cos(this.second * Math.PI / 30 - Math.PI / 2);
+            var y = this.y0 + this.second_hand * Math.sin(this.second * Math.PI / 30 - Math.PI / 2);
+            this.ctx.beginPath();
+            this.ctx.moveTo(this.x0, this.y0);
+            this.ctx.lineTo(x - 0.5, y - 0.5);
+            this.ctx.lineWidth = 3;
+            this.ctx.strokeStyle = 'red';
+            this.ctx.stroke();
+        }
+        clock.prototype.autoplay = function() {
+            var that = this;
+            var t = setInterval(function() {
+
+                that.hour = new Date().getHours();
+                that.minute = new Date().getMinutes();
+                that.second = new Date().getSeconds();
+                that.ctx.clearRect(0, 0, that.ctx.canvas.width, that.ctx.canvas.height);
+                that.drawclock();
+            }, 1000);
+        }
+
+        var p = new clock();
+    </script>
+</body>
+
+</html>
